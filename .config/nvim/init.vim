@@ -1,60 +1,48 @@
-"dein Scripts-----------------------------
 if &compatible
   set nocompatible               " Be iMproved
 endif
 
-" Required:
+" Add dein to runtime path
 set runtimepath+=/Users/otakefumiya/.cache/dein/repos/github.com/Shougo/dein.vim
 
 
 if dein#load_state('~/.cache/dein')
-
-" Required:
   call dein#begin('/Users/otakefumiya/.cache/dein')
 
-" Let dein manage dein
-" Required:
-  call dein#add('/Users/otakefumiya/.cache/dein/repos/github.com/Shougo/dein.vim')
-
+  " Load plugins from dein.toml
   let s:toml = '~/.cache/dein/dein.toml'
-  call dein#load_toml(s:toml, {'lazy':0})
+  if filereadable(expand(s:toml))
+    call dein#load_toml(s:toml, {'lazy': 0})
+  endif
 
-
-"call dein#add('junegunn/fzf.vim')
-
-" Add or remove your plugins here like this:
-"call dein#add('Shougo/neosnippet.vim')
-"call dein#add('Shougo/neosnippet-snippets')
-
-" Required:
   call dein#end()
-  
   call dein#save_state()
 endif
 
-" Required:
+" Ensure plugins are installed
+if dein#check_install()
+  call dein#install()
+endif
+
+" General settings
 filetype plugin indent on
-set smartindent
+set autoindent
 syntax enable
 set background=dark
-colorscheme iceberg
+
+try
+  colorscheme iceberg
+catch
+  colorscheme default
+endtry
 
 set number
 set cursorcolumn
 set hidden
 set clipboard+=unnamedplus
-
 set list
 set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
 set hls
 
-"fzf
+" Add fzf runtime path
 set rtp+=/usr/local/opt/fzf
-
-
-" If you want to install not installed plugins on startup.
-if dein#check_install()
-  call dein#install()
-endif
-
-"End dein Scripts-------------------------
