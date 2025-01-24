@@ -13,14 +13,14 @@ ln -sfn $(pwd)/.config/nvim/init.vim ~/.config/nvim/init.vim
 ln -sfn $(pwd)/.config/nvim/dein.toml ~/.cache/dein/dein.toml
 
 # dein.vimがインストールされていない場合、インストーラーを実行
-if [ ! -d "~/.cache/dein" ]; then
+if [ ! -d ~/.cache/dein ]; then
   echo "Installing dein.vim..."
-  curl -L https://github.com/Shougo/dein.vim/raw/master/bin/installer.sh | sh
+  curl -L https://github.com/Shougo/dein.vim/raw/master/bin/installer.sh | sh -s ~/.cache/dein
 fi
 
 # dein.vimによるプラグインのインストール
 echo "Installing plugins with dein.vim..."
-nvim +':call dein#install()' +':q'
+nvim +'call dein#install()' +qall
 
 echo "Neovim configuration setup complete!"
 
